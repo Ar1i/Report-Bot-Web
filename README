@@ -1,0 +1,19 @@
+What is needed?
+- A VPS Server with Node installed. Just install the normal Node Report Bot from askwrite and you should be fine.
+
+How to Setup:
+
+1. Put the web path in your var/www folder.
+2. Edit the config file. Fill out the Captcha Data (Google Captcha), MySQL, and Site Password.
+3. Now you see 2 points which are called "script_path" and "script_log_path".
+4. This is pretty easy. Just upload the server stuff to a folder of your choose. For example i upload it to /var/report-bot
+5. So i link to "script_path" = /var/report-bot and "script_log_path" = /var/report-bot/log
+6. Import the MySQL Database which i passed to the folder web.
+7. Add some accounts. It works like in askwrites Report Bot Script. But mine supports Steamguard!
+8. To use SteamGuard you need to put in the main folder of the script the sentry file. Like AccountName.sentry
+9. Have Fun with it. Modify it like you want, but don't remove the Credits please. Thanks!
+
+
+Credits:
+
+@askwrite - Main Report Bot Script in Node
