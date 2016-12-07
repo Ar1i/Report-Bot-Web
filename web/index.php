@@ -51,64 +51,64 @@ if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
 		<?php
 		if (!empty($_POST['pw'])) {
 			if ($_POST['pw'] == $pw) {
-			// empty response
-			$response = null;
-			 
-			// check secret key
-			$reCaptcha = new ReCaptcha($secret);
-			
-			// if submitted check response
-			if ($_POST["g-recaptcha-response"]) {
-				$response = $reCaptcha->verifyResponse(
-					$_SERVER["REMOTE_ADDR"],
-					$_POST["g-recaptcha-response"]
-				);
-			}
-			
-			if ($response != null && $response->success) {
+				// empty response
+				$response = null;
+				 
+				// check secret key
+				$reCaptcha = new ReCaptcha($secret);
 				
-				if (!empty($_POST['steamid'])) {
-					$steamid = $_POST['steamid'];
-					if (strlen($steamid) != 17) {
-						echo '<br><font color=red>Error: SteamID not Valid?</font>';
-					} else {
-						if (!ctype_digit($steamid)) {
+				// if submitted check response
+				if ($_POST["g-recaptcha-response"]) {
+					$response = $reCaptcha->verifyResponse(
+						$_SERVER["REMOTE_ADDR"],
+						$_POST["g-recaptcha-response"]
+					);
+				}
+				
+				if ($response != null && $response->success) {
+					
+					if (!empty($_POST['steamid'])) {
+						$steamid = $_POST['steamid'];
+						if (strlen($steamid) != 17) {
 							echo '<br><font color=red>Error: SteamID not Valid?</font>';
 						} else {
-							if ((strpos($steamid, "765") !== false)) {
-								$result = mysqli_query($conn,"SELECT * FROM whitelist WHERE steamid = '".$steamid."'");
-								$row = mysqli_fetch_array($result);
-								if (!in_array($steamid, $row)) {
-									$link = 'http://steamcommunity.com/profiles/'.$steamid.'?xml=1';
-									$xml = simplexml_load_file(rawurlencode($link));
-									$error = $xml->error;
-									if ($error == 'The specified profile could not be found.') 
-									{
-										echo '<br><font color=red>Error: Cant find this Steam Account?</font>';
+							if (!ctype_digit($steamid)) {
+								echo '<br><font color=red>Error: SteamID not Valid?</font>';
+							} else {
+								if ((strpos($steamid, "765") !== false)) {
+									$result = mysqli_query($conn,"SELECT * FROM whitelist WHERE steamid = '".$steamid."'");
+									$row = mysqli_fetch_array($result);
+									if (!in_array($steamid, $row)) {
+										$link = 'http://steamcommunity.com/profiles/'.$steamid.'?xml=1';
+										$xml = simplexml_load_file(rawurlencode($link));
+										$error = $xml->error;
+										if ($error == 'The specified profile could not be found.') 
+										{
+											echo '<br><font color=red>Error: Cant find this Steam Account?</font>';
+										} else {
+											$sql = "INSERT INTO `list` (`id`, `datum`, `steamid`, `ow`, `vac`, `ip`) VALUES (NULL, CURRENT_TIMESTAMP, '".$steamid."', 'false', 'false', '".$_SERVER['REMOTE_ADDR']."');"; 
+											$conn->query($sql);
+											mysqli_close($conn);
+											exec('cd '.$script_path.' && node bot-report-web.js '.$steamid.' > '.$script_log_path.''.$steamid.'.txt &');
+											header('Location: ?l='.$steamid);	
+										}
 									} else {
-										$sql = "INSERT INTO `list` (`id`, `datum`, `steamid`, `ow`, `vac`, `ip`) VALUES (NULL, CURRENT_TIMESTAMP, '".$steamid."', 'false', 'false', '".$_SERVER['REMOTE_ADDR']."');"; 
-										$conn->query($sql);
-										mysqli_close($conn);
-										exec('cd '.$script_path.' && node bot-report-web.js '.$steamid.' > '.$script_log_path.''.$steamid.'.txt &');
-										header('Location: ?l='.$steamid);	
+										
+										echo '<br><font color=red>Error: Account probably on the Whitelist.</font>';
 									}
 								} else {
-									
-									echo '<br><font color=red>Error: Account probably on the Whitelist.</font>';
+									echo '<br><font color=red>Error: SteamID not Valid?</font>';
 								}
-							} else {
-								echo '<br><font color=red>Error: SteamID not Valid?</font>';
 							}
 						}
 					}
+				} else {
+					echo '<br><font color=red>Error: Captcha?</font>';
 				}
 			} else {
-				echo '<br><font color=red>Error: Captcha?</font>';
+				echo '<br><font color=red>Error: Password wrong?</font>';
 			}
-		} else {
-			echo '<br><font color=red>Error: Password wrong?</font>';
 		}
-	}
         if (!empty($_GET['l'])) {
             $steamid = $_GET['l'];
 			echo '<h2>Output of "'.$steamid.'"</h2><br>';
