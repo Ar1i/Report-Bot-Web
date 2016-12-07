@@ -108,7 +108,6 @@ if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
 		} else {
 			echo '<br><font color=red>Error: Password wrong?</font>';
 		}
-	}
         if (!empty($_GET['l'])) {
             $steamid = $_GET['l'];
 			echo '<h2>Output of "'.$steamid.'"</h2><br>';
