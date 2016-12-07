@@ -8,11 +8,12 @@ How to Setup:
 3. Now you see 2 points which are called "script_path" and "script_log_path".
 4. This is pretty easy. Just upload the server stuff to a folder of your choose. For example i upload it to /var/report-bot
 5. So i link to "script_path" = /var/report-bot and "script_log_path" = /var/report-bot/log
-6. Import the MySQL Database which i passed to the folder web.
-7. Add some accounts. It works like in askwrites Report Bot Script. But mine supports Steamguard!
-8. To use SteamGuard you need to put in the main folder of the script the sentry file. Like AccountName.sentry
-9. Have Fun with it. Modify it like you want, but don't remove the Credits please. Thanks!
-
+6. Run in the Bot Folder npm install to Install the needed modules. 
+7. Import the MySQL Database which i passed to the folder web.
+8. Add some accounts. It works like in askwrites Report Bot Script. But mine supports Steamguard!
+9. To use SteamGuard you need to put in the main folder of the script the sentry file. Like AccountName.sentry
+10. To get the OW/Vac-Check working you need to run a cronjob on ow-check.php
+11. Have Fun with it. Modify it like you want, but don't remove the Credits please. Thanks!
 
 Credits:
 
