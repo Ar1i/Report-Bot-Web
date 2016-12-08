@@ -25,7 +25,6 @@ if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
   </head>
 
   <body>
-	<?php include_once("analyticstracking.php") ?>
     <div class="container">
       <div class="header clearfix">
         <nav>
@@ -111,13 +110,13 @@ if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
 		}
         if (!empty($_GET['l'])) {
             $steamid = $_GET['l'];
-			echo '<h2>Output of "'.$steamid.'"</h2><br>';
             if (strlen($steamid) != 17) {
                 echo '<br><font color=red>Error: SteamID not Valid?</font>';
             } else {
                 if (!ctype_digit($steamid)) {
                     echo '<br><font color=red>Error: SteamID not Valid?</font>';
                 } else {
+					echo '<h2>Output of "'.$steamid.'"</h2><br>';
                     $filename = $script_log_path.$steamid.'.txt';
                     if (file_exists($filename)) {
                         if (is_readable($filename)) {

@@ -21,7 +21,6 @@ require('mysql.php');
   </head>
 
   <body>
-	<?php include_once("analyticstracking.php") ?>
     <div class="container">
       <div class="header clearfix">
         <nav>

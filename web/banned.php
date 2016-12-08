@@ -17,7 +17,6 @@
       <link href="css/narrow-jumbotron.css" rel="stylesheet">
    </head>
    <body>
-      <?php include_once("analyticstracking.php") ?>
       <div class="container">
          <div class="header clearfix">
             <nav>
