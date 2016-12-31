@@ -6,7 +6,7 @@ $result = mysqli_query($conn, "SELECT * FROM list WHERE ow=false OR vac=false OR
 $ids;
 
 $count   = 0;
-$counter = 0;
+$counter = 1;
 
 while ($row = $result->fetch_array()) {
     $rows[] = $row;
@@ -97,6 +97,9 @@ foreach ($rows as $row) {
     mysqli_query($conn, "UPDATE info SET vac=" . $vac[0]);
     mysqli_query($conn, "UPDATE info SET checked=" . $c[0]);
 }
+
+echo $counter;
+echo $s;
 
 $d = date('d/m/Y H:i');
 mysqli_query($conn, "UPDATE info SET lastcheck='" . $d . "'");
