@@ -44,8 +44,7 @@ if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
       </div>
 	 
 	<center>
-	  <?php include ("header.php"); ?>
-	  <div class="alert alert-warning">Disabled cause of some bugs. Will be back in some days.</div>
+	  <?php include ("header.php"); ?> 
       <div class="row marketing">
 		<?php
 		if (!empty($_POST['pw'])) {
