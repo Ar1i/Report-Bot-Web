@@ -7,6 +7,7 @@ var fs = require("fs");
 var readline = require("readline");
 
 var steam = new Steam.SteamClient();
+var steamUser = new Steam.SteamUser(steamClient);
 
 var rl = readline.createInterface({
   input: process.stdin,
@@ -18,7 +19,7 @@ rl.question("Username: ", function(answer) {
     rl.question("Password: ", function(answer2) {
         password = answer2;
         rl.pause();
-        steam.logOn({
+        steamUser.logOn({
             accountName: username,
             password: password
         });
