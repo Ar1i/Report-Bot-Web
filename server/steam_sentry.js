@@ -7,7 +7,7 @@ var fs = require("fs");
 var readline = require("readline");
 
 var steam = new Steam.SteamClient();
-var steamUser = new Steam.SteamUser(steamClient);
+var steamUser = new Steam.SteamUser(steam);
 
 var rl = readline.createInterface({
   input: process.stdin,
