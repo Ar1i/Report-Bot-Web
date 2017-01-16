@@ -7,7 +7,6 @@ var fs = require("fs");
 var readline = require("readline");
 
 var steam = new Steam.SteamClient();
-var steamUser = new Steam.SteamUser(steam);
 
 var rl = readline.createInterface({
   input: process.stdin,
@@ -19,16 +18,15 @@ rl.question("Username: ", function(answer) {
     rl.question("Password: ", function(answer2) {
         password = answer2;
         rl.pause();
-        steamUser.logOn({
+        steam.logOn({
             accountName: username,
             password: password
         });
     });
 });
 
-steam.on("loggedOn", function(result) {
+steam.on("logOnResponse", function(result) {
     console.log("Logged in");
-    steam.setPersonaState(Steam.EPersonaState.Online);
     setTimeout (function() {
         process.exit();
     }, 1000);
@@ -57,4 +55,5 @@ steam.on('sentry', function(data) {
     var format = username + ".sentry";
     fs.writeFileSync(format, data);
     console.log("Sentry file successfully saved!");
+	process.exit();
 });

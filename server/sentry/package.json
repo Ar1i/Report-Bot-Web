@@ -1,0 +1,21 @@
+{
+  "name": "csgo-reportbot-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bot.js",
+  "dependencies": {
+    "long": "^3.1.0",
+    "protobufjs": "^5.0.1",
+    "q": "^1.4.1",
+    "readline-sync": "^1.4.4",
+    "steam": "0.6.8",
+    "steamid": "^1.1.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "Report-Bot-Web"
+  },
+  "author": "askwrite, Radat.",
+  "license": "ISC"
+}
