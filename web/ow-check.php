@@ -7,6 +7,7 @@ $ids;
 
 $count   = 0;
 $counter = 1;
+$rows = [];
 
 while ($row = $result->fetch_array()) {
     $rows[] = $row;
