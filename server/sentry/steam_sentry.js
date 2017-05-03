@@ -1,3 +1,4 @@
+// Credits to @sstokic-tgm for Sentry fix
 var username;
 var password;
 var steamCode;
@@ -25,16 +26,18 @@ rl.question("Username: ", function(answer) {
     });
 });
 
-steam.on("logOnResponse", function(result) {
+steam.on("loggedOn", function(result) {
     console.log("Logged in");
+    steam.setPersonaState(Steam.EPersonaState.Online);
+    steam.setPersonaName(username);
     setTimeout (function() {
         process.exit();
-    }, 1000);
+    }, 10000);
 });
 
 steam.on("error", function(error) {
     if (error.cause == "logonFail") {
-        if (error.eresult == 63) {
+		if (error.eresult == 63) {
             rl.resume();
             rl.question("Steam guard code: ", function(answer) {
                 steamCode = answer;
@@ -55,5 +58,4 @@ steam.on('sentry', function(data) {
     var format = username + ".sentry";
     fs.writeFileSync(format, data);
     console.log("Sentry file successfully saved!");
-	process.exit();
 });
