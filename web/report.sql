@@ -53,8 +53,8 @@ CREATE TABLE IF NOT EXISTS `info` (
 -- Daten für Tabelle `info`
 --
 
-INSERT INTO `info` (`lastcheck`, `ow`, `vac`, `checked`) VALUES
-('29/11/2016 15:11', 0, 0, 0);
+INSERT INTO `info` (lastcheck, ow, vac, checked)
+VALUES ('29/11/2016 15:11', 0, 0, 0);
 --
 -- Tabellenstruktur für Tabelle `list`
 --
