@@ -29,7 +29,6 @@ rl.question("Username: ", function(answer) {
 steam.on("loggedOn", function(result) {
     console.log("Logged in");
     steam.setPersonaState(Steam.EPersonaState.Online);
-    steam.setPersonaName(username);
     setTimeout (function() {
         process.exit();
     }, 10000);
