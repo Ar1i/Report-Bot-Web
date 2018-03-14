@@ -141,7 +141,7 @@ if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
 			?>
 			<h1 class="display-3">Report:</h1>
 			<p class="lead">
-			  <form action = "<?php $_PHP_SELF ?>" method = "POST">
+          <form action = "<?php $_SERVER['PHP_SELF'] ?>" method = "POST">
 				SteamID 64: 
 				<input type = "text" placeholder="SteamID 64" name = "steamid" /><br><br>
 				MatchID (Not needed):
