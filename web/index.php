@@ -166,13 +166,11 @@ if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
     <script src="js/ie10-viewport-bug-workaround.js"></script>
 	<script src='https://www.google.com/recaptcha/api.js'></script>
 	<script>
-	var textarea = document.getElementById('info');
-	var w = 'Thanks for using this Service';
-	var textValue=textarea.value; 
-	if (textValue.indexOf(w)!=-1)
-	{
-	} else {
-		 setTimeout(function () { location.reload(true); }, 3000);
+	var textSite = document.getElementById('info').value;
+	if (!textSite.includes("Thanks for using this Service")) {
+	    setTimeout(function() {
+		location.reload(true);
+	    }, 3000);
 	}
 	</script>
 	
