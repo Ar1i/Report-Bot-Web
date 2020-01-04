@@ -87,11 +87,21 @@ if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
 										{
 											echo '<br><font color=red>Error: Cant find this Steam Account?</font>';
 										} else {
-											$sql = "INSERT INTO `list` (`id`, `datum`, `steamid`, `ow`, `vac`, `ip`) VALUES (NULL, CURRENT_TIMESTAMP, '".$steamid."', 'false', 'false', '".$_SERVER['REMOTE_ADDR']."');"; 
-											$conn->query($sql);
-											mysqli_close($conn);
-											exec('cd '.$script_path.' && node bot-report-web.js '.$steamid.' > '.$script_log_path.''.$steamid.'.txt &');
-											header('Location: ?l='.$steamid);	
+											$matchID = '0';
+											if(!empty($_POST['matchid'])) {
+												$matchID = $_POST['matchid'];
+											}
+
+											if (!ctype_digit($matchID)) {
+												echo '<br><font color=red>Error: MatchID not Valid?</font>';
+											} else {
+												$sql = "INSERT INTO `list` (`id`, `datum`, `steamid`, `matchid`, `ow`, `vac`, `ip`) VALUES (NULL, CURRENT_TIMESTAMP, '".$steamid."', '".$matchID."', 'false', 'false', '".$_SERVER['REMOTE_ADDR']."');"; 
+												$conn->query($sql);
+												mysqli_close($conn);
+												exec('cd '.$script_path.' && node bot-report-web.js '.$steamid.' '.$matchID.' > '.$script_log_path.''.$steamid.'.txt &');
+
+												header('Location: ?l='.$steamid);	
+											}
 										}
 									} else {
 										
@@ -144,9 +154,9 @@ if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
           <form action = "<?php $_SERVER['SCRIPT_NAME'] ?>" method = "POST">
 				SteamID 64: 
 				<input type = "text" placeholder="SteamID 64" name = "steamid" /><br><br>
-				MatchID (Not needed):
+				MatchID:
 				<input type = "text" placeholder="MatchID" name = "matchid" /><br><br>
-				<input type = "checkbox" onclick = "document.getElementById('buttplug').disabled=false;" id="checky"> I understand that the Player needs to be in my game.<br><br>
+				<input type = "checkbox" onclick = "document.getElementById('buttplug').disabled=false;" id="checky"> I understand that the player needs to be in my game.<br><br>
 				Password:
 				<input type = "text" placeholder="Password" name = "pw" /><br><br>
 			    <div class="g-recaptcha" data-sitekey="<?php echo $gcaptchasidekey?>"></div><br>

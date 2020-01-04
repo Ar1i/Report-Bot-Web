@@ -12,6 +12,7 @@ var fs = require("fs"),
     SteamFriends = {},
     process = require("process"),
     steamID = process.argv[2],
+	matchID = process.argv[3],
     ClientHello = 4006,
     ClientWelcome = 4004;
 
@@ -136,7 +137,7 @@ function processSteamReport(element, indexElement, array) {
                     console.log("[GC - " + indexElement + "] Client Welcome received!");
                     console.log("[GC - " + indexElement + "] Report request sent!");
                     IntervalIntArray[indexElement] = setInterval(function() {
-                        sendReport(SteamGCs[indexElement], SteamClients[indexElement], account_name, steamID);
+                        sendReport(SteamGCs[indexElement], SteamClients[indexElement], account_name, steamID, matchID);
                     }, 2000);
                     break;
                 case Protos.ECsgoGCMsg.k_EMsgGCCStrike15_v2_MatchmakingGC2ClientHello:
@@ -162,14 +163,14 @@ function processSteamReport(element, indexElement, array) {
     }
 }
 
-function sendReport(GC, Client, account_name) {
+function sendReport(GC, Client, account_name, match_id) {
     var account_id = new SteamID(steamID).accountid;
     GC.send({
         msg: Protos.ECsgoGCMsg.k_EMsgGCCStrike15_v2_ClientReportPlayer,
         proto: {}
     }, new Protos.CMsgGCCStrike15_v2_ClientReportPlayer({
         accountId: account_id,
-        matchId: 8,
+        matchId: match_id,
         rptAimbot: 2,
         rptWallhack: 3,
         rptSpeedhack: 4,
